@@ -28,13 +28,81 @@ scale = Vector2( 0.323168, 2.35152 )
 texture = ExtResource( 2 )
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 271, -125 )
+position = Vector2( 267, -131 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 352, -29 )
+position = Vector2( 348, -35 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 104, -178 )
+position = Vector2( 100, -184 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Enemy4" parent="." instance=ExtResource( 3 )]
-position = Vector2( -39, -175 )
+position = Vector2( -43, -181 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 347, -127 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 428, -31 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 180, -180 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 37, -177 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 269, -60 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 350, 36 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy11" parent="." instance=ExtResource( 3 )]
+position = Vector2( 102, -113 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy12" parent="." instance=ExtResource( 3 )]
+position = Vector2( -41, -110 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy13" parent="." instance=ExtResource( 3 )]
+position = Vector2( 199, -52 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy14" parent="." instance=ExtResource( 3 )]
+position = Vector2( 280, 44 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy15" parent="." instance=ExtResource( 3 )]
+position = Vector2( 32, -105 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy16" parent="." instance=ExtResource( 3 )]
+position = Vector2( -111, -102 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy17" parent="." instance=ExtResource( 3 )]
+position = Vector2( 339, 106 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy18" parent="." instance=ExtResource( 3 )]
+position = Vector2( 179, 23 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy19" parent="." instance=ExtResource( 3 )]
+position = Vector2( 65, -36 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy20" parent="." instance=ExtResource( 3 )]
+position = Vector2( -46, -33 )
+scale = Vector2( 0.5, 0.5 )

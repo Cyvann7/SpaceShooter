@@ -28,9 +28,6 @@ func _ready():
 		Vector2(0.4,0.4),
 		1, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.6)
 	
-	#now end effect and destroy
-	tween.interpolate_callback(self,0.5,"remove")
-	
 	#start tween
 	tween.start()
 	

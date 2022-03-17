@@ -4,17 +4,21 @@ var move_speed = 250
 var actual_velocity
 
 var bullet = preload("res://resources/scenes/Bullet.tscn")
+var nade = preload("res://resources/scenes/nade.tscn")
 
+var sprint_coeff 
+var sprinting = false
 
-var fire_rate = 0.01
+var fire_rate = 0.1
 var currently_rolling = false
 var currently_shooting = false
-var roll_on_cd = false
 
-var ability = "roll"
 var roll_cd = 3
-var rolltime = 0.1
-var roll_coeff = 3
+var roll_on_cd = false
+var roll_time = 0.15
+var roll_coeff = 4
+export(String, "Roll", "Blink", "Grenade") var ability
+
 
 func _ready():
 	pass # Replace with function body.
@@ -27,12 +31,18 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("player_down"): move_direction.y +=  1
 	if Input.is_action_pressed("player_left"): move_direction.x += -1
 	if Input.is_action_pressed("player_right"):move_direction.x +=  1
+	if Input.is_action_pressed("player_sprint"):
+		sprinting = true
+		sprint_coeff = 1.45
+	else: 
+		sprinting = false
+		sprint_coeff = 1
 	
-	if not currently_shooting and not currently_rolling:
+	if not currently_shooting and not currently_rolling and not sprinting:
 		if Input.is_action_pressed("player_shoot"): shoot()
 		
 	move_direction = move_direction.normalized()
-	actual_velocity = move_and_slide(move_direction*move_speed)
+	actual_velocity = move_and_slide(move_direction*(move_speed*sprint_coeff))
 	
 	look_at(get_global_mouse_position())
 	
@@ -51,7 +61,7 @@ func _unhandled_input(event):
 func shoot():
 	$Gun/GunMuzzle/Particles2D.restart()
 	var b = bullet.instance()
-	owner.add_child(b)
+	get_parent().add_child(b)
 	b.transform = $Gun/GunMuzzle.global_transform
 	b.rotation_degrees = $Gun.global_rotation_degrees
 	currently_shooting = true
@@ -61,13 +71,21 @@ func shoot():
 func roll():
 	currently_rolling = true
 	move_speed = move_speed * roll_coeff
-	yield(get_tree().create_timer(rolltime), "timeout")
+	yield(get_tree().create_timer(roll_time), "timeout")
 	move_speed = move_speed / roll_coeff
 	currently_rolling = false
 	
 func use_ability():
-	if ability == "roll": roll()
-	if ability == "blink": position = get_global_mouse_position()
+	if ability == "Roll": roll()
+	if ability == "Blink": position = get_global_mouse_position()
+	if ability == "Grenade":
+		$Gun/GunMuzzle/Particles2D.restart()
+		var n = nade.instance()
+		get_parent().add_child(n)
+		n.transform = $Gun/GunMuzzle.global_transform
+		n.rotation_degrees = $Gun.global_rotation_degrees
+		
+	
 
 
 

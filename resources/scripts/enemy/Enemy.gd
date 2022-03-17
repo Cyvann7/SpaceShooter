@@ -12,8 +12,7 @@ func take_hit(d, crit_chance=0, dot=false, dottime=0,dotticks=0, dotcoeff=1):
 			d = d*2
 	
 	var float_text = floating_text_scene.instance()
-	
-	float_text.velocity = Vector2(rand_range(-50,50), rand_range(-50,50))
+	float_text.velocity = Vector2(rand_range(-50,50), rand_range(0,-50))
 	if crit == true: float_text.modulate = Color(1,0,0)
 	else: float_text.modulate = Color(1,1,1)
 	

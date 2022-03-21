@@ -6,9 +6,6 @@ var actual_velocity
 var bullet = preload("res://resources/scenes/Bullet.tscn")
 var nade = preload("res://resources/scenes/nade.tscn")
 
-var sprint_coeff 
-var sprinting = false
-
 var fire_rate = 0.1
 var currently_rolling = false
 var currently_shooting = false
@@ -16,7 +13,8 @@ var currently_shooting = false
 var roll_cd = 3
 var roll_on_cd = false
 var roll_time = 0.15
-var roll_coeff = 4
+var roll_speed = 1000
+
 export(String, "Roll", "Blink", "Grenade") var ability
 
 
@@ -31,18 +29,12 @@ func _physics_process(_delta):
 	if Input.is_action_pressed("player_down"): move_direction.y +=  1
 	if Input.is_action_pressed("player_left"): move_direction.x += -1
 	if Input.is_action_pressed("player_right"):move_direction.x +=  1
-	if Input.is_action_pressed("player_sprint"):
-		sprinting = true
-		sprint_coeff = 1.45
-	else: 
-		sprinting = false
-		sprint_coeff = 1
 	
-	if not currently_shooting and not currently_rolling and not sprinting:
+	if not currently_shooting and not currently_rolling:
 		if Input.is_action_pressed("player_shoot"): shoot()
 		
 	move_direction = move_direction.normalized()
-	actual_velocity = move_and_slide(move_direction*(move_speed*sprint_coeff))
+	actual_velocity = move_and_slide(move_direction*move_speed)
 	
 	look_at(get_global_mouse_position())
 	
@@ -69,10 +61,11 @@ func shoot():
 	currently_shooting = false
 	
 func roll():
+	var non_roll_move_speed = move_speed
 	currently_rolling = true
-	move_speed = move_speed * roll_coeff
+	move_speed = roll_speed
 	yield(get_tree().create_timer(roll_time), "timeout")
-	move_speed = move_speed / roll_coeff
+	move_speed = non_roll_move_speed
 	currently_rolling = false
 	
 func use_ability():

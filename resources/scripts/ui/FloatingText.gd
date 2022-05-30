@@ -30,6 +30,8 @@ func _ready():
 	
 	#start tween
 	tween.start()
+	yield(get_tree().create_timer(3), "timeout")
+	queue_free()
 	
 func _process(delta):
 	velocity+= gravity * mass * delta

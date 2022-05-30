@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/scenes/UI/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://resources/scenes/UI/MainTheme/KennySpaceFOn.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/scenes/UI/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://resources/assets/ui/Spaceman.png" type="Texture" id=4]
+[ext_resource path="res://resources/assets/ui/Steve.png" type="Texture" id=5]
+[ext_resource path="res://resources/assets/ui/levelcompletebackground.jpeg" type="Texture" id=6]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.0
+margin_right = -6.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -212.0
+margin_top = -142.0
+margin_right = 1708.0
+margin_bottom = 938.0
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 80.0
+margin_top = 412.0
+margin_right = 330.0
+margin_bottom = 712.0
+theme = ExtResource( 1 )
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 47.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tutorial" type="Button" parent="VBoxContainer"]
+margin_top = 57.0
+margin_right = 250.0
+margin_bottom = 104.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Tutorial"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+margin_top = 114.0
+margin_right = 250.0
+margin_bottom = 161.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+margin_top = 171.0
+margin_right = 250.0
+margin_bottom = 218.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpacemanSteve" type="Control" parent="."]
+margin_left = 17.0
+margin_top = -1.0
+margin_right = 57.0
+margin_bottom = 39.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="SpacemanSteve"]
+margin_left = 547.0
+margin_top = 41.0
+margin_right = 1920.0
+margin_bottom = 211.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="SpacemanSteve"]
+margin_left = 839.0
+margin_top = 136.0
+margin_right = 2212.0
+margin_bottom = 306.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+stretch_mode = 3
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Tutorial" to="." method="_on_Tutorial_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

@@ -13,27 +13,41 @@ var min_size = 4
 var max_size = 10
 var end_room = null
 var num_rooms
-var path = AStar2D
-
-#Player
+var path 
 var play_mode = false
 var player = null
-var start_pos = null
+var start_pos = Vector2.ZERO
+var enemy_spawn_chance = 1.0
 
-#Enemies
-var enemy_spawn_chance = 1
 
-func _process(_delta):
+
+func _physics_process(delta):
 	update()
+	PlayerStats.pTimeSpentInLevel += delta
+	PlayerStats.EnemyUpgradeTime += delta
+	
+	yield(get_tree().create_timer(5), "timeout")
+	if enemy_left() == 0:
+		$CanvasModulate.color = Color.black
+		yield(get_tree().create_timer(1.5), "timeout")
+# warning-ignore:return_value_discarded
+		get_tree().change_scene("res://resources/scenes/UI/LevelComplete.tscn")
 
 func _ready():
 	randomize()
 	make_rooms()
 	yield(get_tree().create_timer(3), "timeout")
 	make_map()
+	
+	
 	player = Player.instance()
-	player.position = start_pos
+	player.position.x = start_pos.x
+	player.position.y = start_pos.y
+	
 	add_child(player)
+	PlayerStats.pTimeSpentInLevel = 0
+	PlayerStats.worldLevel += 1
+	PlayerStats.pDict.Health = PlayerStats.pDict.MaxHealth
 
 func make_rooms():
 	num_rooms = 15 + randi()%25
@@ -80,7 +94,7 @@ func find_mst(nodes):
 	# Returns an AStar object
 
 	# Initialize the AStar and add the first point
-	var path = AStar2D.new()
+	path = AStar2D.new()
 	path.add_point(path.get_available_point_id(), nodes.pop_front())
 	
 	# Repeat until no more nodes remain
@@ -115,8 +129,14 @@ func make_map():
 		#get the size of the room
 		var r = Rect2(room.position-room.size, room.get_node("CollisionShape2D").shape.extents*2)
 		full_rect = full_rect.merge(r)
+		start_pos = room.position
+	print(start_pos)
+	
 	var topleft = Map.world_to_map(full_rect.position)
 	var bottomright = Map.world_to_map(full_rect.end)
+	
+	
+	
 	for x in range(topleft.x, bottomright.x+2):
 		for y in range(topleft.y, bottomright.y+2):
 			Map.set_cell(x,y,1)
@@ -124,12 +144,15 @@ func make_map():
 	#carve rooms
 	var corridors = []
 	for room in $Rooms.get_children():
+		
 		var s = (room.size/tile_size).floor()
 		var _pos = Map.world_to_map(room.position)
 		var ul = (room.position/tile_size).floor() - s
 		for x in range(1, s.x*2 - 1): # start at 1 not 0 so that rooms still have walls
 			for y in range(1, s.y*2 - 1):
-				Map.set_cell(ul.x + x, ul.y+y ,0 )
+				Map.set_cell(ul.x + x, ul.y+y ,0)
+		
+		
 		#carve corridors
 		var p = path.get_closest_point(Vector2(room.position.x, room.position.y))
 		for conn in path.get_point_connections(p):
@@ -141,32 +164,12 @@ func make_map():
 	
 	for cell in Map.get_used_cells_by_id(0):
 		Map.set_cell(cell.x,0-cell.y, 0)
-		if (randi()%1000)/10 < enemy_spawn_chance: 
+		if (randi()%1000)/10.0 < enemy_spawn_chance: 
 			var e = Enemy.instance()
 			$Enemy.add_child(e)
 			e.position = Map.map_to_world(cell)
 			e.position.x +=16
 			e.position.y +=16
-	
-	#choose player spawn
-	var amt_of_flr_tiles = Map.get_used_cells_by_id(0).size()
-	var spn_is_nxt_to_wall = true
-	var spawn_cell
-	while spn_is_nxt_to_wall:
-		spawn_cell = Map.get_used_cells_by_id(0)[randi()%amt_of_flr_tiles]
-		if Map.get_cell(spawn_cell.x+1, spawn_cell.y) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x-1, spawn_cell.y) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x, spawn_cell.y+1) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x, spawn_cell.y-1) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x+1, spawn_cell.y+1) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x+1, spawn_cell.y-1) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x-1, spawn_cell.y+1) == 1: spn_is_nxt_to_wall = true
-		elif Map.get_cell(spawn_cell.x-1, spawn_cell.y-1) == 1: spn_is_nxt_to_wall = true
-		else: spn_is_nxt_to_wall = false
-		print(spn_is_nxt_to_wall, spawn_cell)
-	start_pos = Map.map_to_world(spawn_cell)
-	start_pos.x +=16
-	start_pos.y +=16
 	
 	#get rid of squares not connected to floors
 	for cell in Map.get_used_cells_by_id(1):
@@ -206,6 +209,8 @@ func carve_path(pos1, pos2):
 		Map.set_cell(y_x.x, y, 0)
 		Map.set_cell(y_x.x + x_diff, y, 0)
 
+func enemy_left():
+	return $Enemy.get_child_count()
 
 #########|DEV OPTIONS|##########################################################
 #func _input(event):

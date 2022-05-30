@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/scripts/enemy/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://resources/assets/main/enemies/awwthescrunkly.png" type="Texture" id=2]
@@ -8,6 +8,114 @@ extents = Vector2( 33, 32 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 1350.0
+
+[sub_resource type="Animation" id=4]
+resource_name = "Attack"
+length = 1.1
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.159642, -0.589189, 4, -0.254553, -0.800929, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( -0.1, 0.4, 0.8 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 2, -0.25, 0, 0.0672103, 1.57158, 2, -0.190832, 1.5715, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -0.0110512, -0.25, 0, 0.25, 0, 2, -0.212125, 2.21714, 0.25, 0 ),
+"times": PoolRealArray( -0.1, 0.999529 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AnimationPlayer:current_animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 2,
+"values": [ "Attack", "Idle" ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "AttackWindup"
+length = 1.1
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.159642, -0.589189, 4, -0.254553, -0.800929, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( -0.1, 0.4, 0.8 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 2, -0.25, 0, 0.0672103, 1.57158, 2, -0.204068, 1.13336, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AnimationPlayer:current_animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 2,
+"values": [ "AttackWindup", "Attack" ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer:current_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 2,
+"values": [ "Idle" ]
+}
 
 [node name="Enemy" type="KinematicBody2D"]
 light_mask = 2
@@ -19,21 +127,29 @@ script = ExtResource( 1 )
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 2.0625, 1.9375 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="AggroGainBox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroGainBox"]
 shape = SubResource( 2 )
 
 [node name="AggroLoseBox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroLoseBox"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 4 )
+anims/AttackWindup = SubResource( 6 )
+anims/Idle = SubResource( 5 )
 
 [connection signal="body_entered" from="AggroGainBox" to="." method="_on_AggroGainBox_body_entered"]
 [connection signal="body_exited" from="AggroLoseBox" to="." method="_on_AggroLoseBox_body_exited"]

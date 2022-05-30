@@ -1,26 +1,24 @@
 extends KinematicBody2D
 
-var move_speed = 250
+export var move_speed = 250 
+export var bullet = preload("res://resources/BulletTypes/Default.tscn")
 var actual_velocity
-
-var bullet = preload("res://resources/scenes/Bullet.tscn")
-var nade = preload("res://resources/scenes/nade.tscn")
-
 var fire_rate = 0.1
-var currently_rolling = false
 var currently_shooting = false
-
-var roll_cd = 3
+var currently_rolling =  false
+var roll_cd =    3
 var roll_on_cd = false
-var roll_time = 0.15
+var roll_time =  0.15
 var roll_speed = 1000
+var closest_enemy = null
+onready var EnemyPointerArrow = $EnemyArrow
 
-export(String, "Roll", "Blink", "Grenade") var ability
 
+export(String, "Roll", "Blink") var ability
 
 func _ready():
-	pass # Replace with function body.
-
+	move_speed *= PlayerStats.pDict.SpeedMod
+	
 func _physics_process(_delta):
 	
 	var move_direction = Vector2.ZERO
@@ -38,6 +36,23 @@ func _physics_process(_delta):
 	
 	look_at(get_global_mouse_position())
 	
+	var world = get_parent()
+	if world.enemy_left() < 10 and world.enemy_left() != 0:
+		EnemyPointerArrow.show()
+		
+		if is_instance_valid(closest_enemy):
+			EnemyPointerArrow.look_at(closest_enemy.global_position)
+		else:
+			var enemyleft = world.get_node("Enemy").get_children()
+			closest_enemy = enemyleft[0]
+			for enemy in enemyleft:
+				if enemy.global_position.distance_to(global_position) < closest_enemy.global_position.distance_to(global_position):
+					closest_enemy = enemy
+		
+		
+	else: EnemyPointerArrow.hide()
+
+
 func _unhandled_input(event):
 	if not currently_rolling and not roll_on_cd:
 		if event.is_action_pressed("player_ability"):
@@ -56,8 +71,10 @@ func shoot():
 	get_parent().add_child(b)
 	b.transform = $Gun/GunMuzzle.global_transform
 	b.rotation_degrees = $Gun.global_rotation_degrees
+	if b.spread !=0:
+		b.rotation_degrees += (b.spread - (randi()%b.spread)*2)
 	currently_shooting = true
-	yield(get_tree().create_timer(fire_rate), "timeout")
+	yield(get_tree().create_timer(b.fire_rate/PlayerStats.pDict.FireMod), "timeout")
 	currently_shooting = false
 	
 func roll():
@@ -69,16 +86,12 @@ func roll():
 	currently_rolling = false
 	
 func use_ability():
-	if ability == "Roll": roll()
-	if ability == "Blink": position = get_global_mouse_position()
-	if ability == "Grenade":
-		$Gun/GunMuzzle/Particles2D.restart()
-		var n = nade.instance()
-		get_parent().add_child(n)
-		n.transform = $Gun/GunMuzzle.global_transform
-		n.rotation_degrees = $Gun.global_rotation_degrees
-		
-	
+	if ability == "Roll":
+		 roll()
+	if ability == "Blink":
+		 position = get_global_mouse_position()
+
+
 
 
 

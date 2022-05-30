@@ -1,0 +1,327 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://resources/scenes/Tutorial.gd" type="Script" id=1]
+[ext_resource path="res://resources/assets/main/tiles/Test_TileMapWalls.png" type="Texture" id=2]
+[ext_resource path="res://resources/assets/main/tiles/backgorund.png" type="Texture" id=3]
+[ext_resource path="res://resources/assets/main/tiles/Test_TileMapFloor.png" type="Texture" id=4]
+[ext_resource path="res://resources/scenes/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/scenes/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/scenes/UI/MainTheme.tres" type="Theme" id=7]
+[ext_resource path="res://resources/scenes/UI/MainTheme/KennySpaceFOn.tres" type="DynamicFont" id=8]
+[ext_resource path="res://resources/assets/ui/fonts/Kenney Blocks.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="NavigationPolygon" id=4]
+vertices = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="TileSet" id=2]
+0/name = "Test_TileMapFloor.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/navigation = SubResource( 4 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "Test_TileMapWalls.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/occluder = SubResource( 3 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 1 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 9 )
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 3 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+position = Vector2( 0, -3 )
+
+[node name="TileMap" type="TileMap" parent="Navigation2D"]
+tile_set = SubResource( 2 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 1
+format = 1
+tile_data = PoolIntArray( -3735559, 1, 0, -3735558, 1, 0, -3735557, 1, 0, -3735556, 1, 0, -3735555, 1, 0, -3735554, 1, 0, -3735553, 1, 0, -3801088, 1, 0, -3801087, 1, 0, -3801086, 1, 0, -3801085, 1, 0, -3801084, 1, 0, -3801083, 1, 0, -3801082, 1, 0, -3670023, 1, 0, -3670022, 0, 0, -3670021, 0, 0, -3670020, 0, 0, -3670019, 0, 0, -3670018, 0, 0, -3670017, 0, 0, -3735552, 0, 0, -3735551, 0, 0, -3735550, 0, 0, -3735549, 0, 0, -3735548, 0, 0, -3735547, 0, 0, -3735546, 1, 0, -3604487, 1, 0, -3604486, 0, 0, -3604485, 0, 0, -3604484, 0, 0, -3604483, 0, 0, -3604482, 0, 0, -3604481, 0, 0, -3670016, 0, 0, -3670015, 0, 0, -3670014, 0, 0, -3670013, 0, 0, -3670012, 0, 0, -3670011, 0, 0, -3670010, 1, 0, -3538951, 1, 0, -3538950, 0, 0, -3538949, 0, 0, -3538948, 0, 0, -3538947, 0, 0, -3538946, 0, 0, -3538945, 0, 0, -3604480, 0, 0, -3604479, 0, 0, -3604478, 0, 0, -3604477, 0, 0, -3604476, 0, 0, -3604475, 0, 0, -3604474, 1, 0, -3473415, 1, 0, -3473414, 0, 0, -3473413, 0, 0, -3473412, 0, 0, -3473411, 0, 0, -3473410, 0, 0, -3473409, 0, 0, -3538944, 0, 0, -3538943, 0, 0, -3538942, 0, 0, -3538941, 0, 0, -3538940, 0, 0, -3538939, 0, 0, -3538938, 1, 0, -3407879, 1, 0, -3407878, 0, 0, -3407877, 0, 0, -3407876, 0, 0, -3407875, 0, 0, -3407874, 0, 0, -3407873, 0, 0, -3473408, 0, 0, -3473407, 0, 0, -3473406, 0, 0, -3473405, 0, 0, -3473404, 0, 0, -3473403, 0, 0, -3473402, 1, 0, -3342343, 1, 0, -3342342, 0, 0, -3342341, 0, 0, -3342340, 1, 0, -3342339, 1, 0, -3342338, 1, 0, -3342337, 1, 0, -3407872, 1, 0, -3407871, 1, 0, -3407870, 1, 0, -3407869, 1, 0, -3407868, 1, 0, -3407867, 1, 0, -3407866, 1, 0, -3276807, 1, 0, -3276806, 0, 0, -3276805, 0, 0, -3276804, 1, 0, -3276803, 1, 0, -3276802, 1, 0, -3276801, 0, 0, -3342336, 0, 0, -3342335, 1, 0, -3342334, 1, 0, -3342333, 1, 0, -3342332, 0, 0, -3342331, 0, 0, -3342330, 1, 0, -3211271, 1, 0, -3211270, 0, 0, -3211269, 0, 0, -3211268, 1, 0, -3211267, 1, 0, -3211266, 1, 0, -3211265, 0, 0, -3276800, 0, 0, -3276799, 1, 0, -3276798, 1, 0, -3276797, 1, 0, -3276796, 0, 0, -3276795, 0, 0, -3276794, 1, 0, -3145735, 1, 0, -3145734, 0, 0, -3145733, 0, 0, -3145732, 1, 0, -3145731, 1, 0, -3145730, 1, 0, -3145729, 0, 0, -3211264, 0, 0, -3211263, 1, 0, -3211262, 1, 0, -3211261, 1, 0, -3211260, 0, 0, -3211259, 0, 0, -3211258, 1, 0, -3080199, 1, 0, -3080198, 0, 0, -3080197, 0, 0, -3080196, 1, 0, -3080195, 1, 0, -3080194, 1, 0, -3080193, 0, 0, -3145728, 0, 0, -3145727, 1, 0, -3145726, 1, 0, -3145725, 1, 0, -3145724, 0, 0, -3145723, 0, 0, -3145722, 1, 0, -3014663, 1, 0, -3014662, 0, 0, -3014661, 0, 0, -3014660, 1, 0, -3014659, 1, 0, -3014658, 1, 0, -3014657, 0, 0, -3080192, 0, 0, -3080191, 1, 0, -3080190, 1, 0, -3080189, 1, 0, -3080188, 0, 0, -3080187, 0, 0, -3080186, 1, 0, -2949127, 1, 0, -2949126, 0, 0, -2949125, 0, 0, -2949124, 1, 0, -2949123, 1, 0, -2949122, 1, 0, -2949121, 0, 0, -3014656, 0, 0, -3014655, 1, 0, -3014654, 1, 0, -3014653, 1, 0, -3014652, 0, 0, -3014651, 0, 0, -3014650, 1, 0, -2883591, 1, 0, -2883590, 0, 0, -2883589, 0, 0, -2883588, 1, 0, -2883587, 1, 0, -2883586, 1, 0, -2883585, 0, 0, -2949120, 0, 0, -2949119, 1, 0, -2949118, 1, 0, -2949117, 1, 0, -2949116, 0, 0, -2949115, 0, 0, -2949114, 1, 0, -2818055, 1, 0, -2818054, 0, 0, -2818053, 0, 0, -2818052, 1, 0, -2818051, 1, 0, -2818050, 1, 0, -2818049, 0, 0, -2883584, 0, 0, -2883583, 1, 0, -2883582, 1, 0, -2883581, 1, 0, -2883580, 0, 0, -2883579, 0, 0, -2883578, 1, 0, -2752519, 1, 0, -2752518, 0, 0, -2752517, 0, 0, -2752516, 1, 0, -2752515, 1, 0, -2752514, 1, 0, -2752513, 0, 0, -2818048, 0, 0, -2818047, 1, 0, -2818046, 1, 0, -2818045, 1, 0, -2818044, 0, 0, -2818043, 0, 0, -2818042, 1, 0, -2686983, 1, 0, -2686982, 0, 0, -2686981, 0, 0, -2686980, 1, 0, -2686979, 1, 0, -2686978, 1, 0, -2686977, 0, 0, -2752512, 0, 0, -2752511, 1, 0, -2752510, 1, 0, -2752509, 1, 0, -2752508, 0, 0, -2752507, 0, 0, -2752506, 1, 0, -2621447, 1, 0, -2621446, 0, 0, -2621445, 0, 0, -2621444, 1, 0, -2621443, 1, 0, -2621442, 1, 0, -2621441, 0, 0, -2686976, 0, 0, -2686975, 1, 0, -2686974, 1, 0, -2686973, 1, 0, -2686972, 0, 0, -2686971, 0, 0, -2686970, 1, 0, -2555911, 1, 0, -2555910, 0, 0, -2555909, 0, 0, -2555908, 0, 0, -2555907, 0, 0, -2555906, 0, 0, -2555905, 0, 0, -2621440, 0, 0, -2621439, 0, 0, -2621438, 0, 0, -2621437, 0, 0, -2621436, 0, 0, -2621435, 0, 0, -2621434, 1, 0, -2490375, 1, 0, -2490374, 0, 0, -2490373, 0, 0, -2490372, 0, 0, -2490371, 0, 0, -2490370, 0, 0, -2490369, 0, 0, -2555904, 0, 0, -2555903, 0, 0, -2555902, 0, 0, -2555901, 0, 0, -2555900, 0, 0, -2555899, 0, 0, -2555898, 1, 0, -2424839, 1, 0, -2424838, 1, 0, -2424837, 1, 0, -2424836, 1, 0, -2424835, 1, 0, -2424834, 1, 0, -2424833, 0, 0, -2490368, 0, 0, -2490367, 1, 0, -2490366, 1, 0, -2490365, 1, 0, -2490364, 1, 0, -2490363, 1, 0, -2490362, 1, 0, -2359298, 1, 0, -2359297, 0, 0, -2424832, 0, 0, -2424831, 1, 0, -2293762, 1, 0, -2293761, 0, 0, -2359296, 0, 0, -2359295, 1, 0, -2228226, 1, 0, -2228225, 0, 0, -2293760, 0, 0, -2293759, 1, 0, -2162690, 1, 0, -2162689, 0, 0, -2228224, 0, 0, -2228223, 1, 0, -2097154, 1, 0, -2097153, 0, 0, -2162688, 0, 0, -2162687, 1, 0, -2031621, 1, 0, -2031620, 1, 0, -2031619, 1, 0, -2031618, 1, 0, -2031617, 0, 0, -2097152, 0, 0, -2097151, 1, 0, -2097150, 1, 0, -2097149, 1, 0, -2097148, 1, 0, -1966085, 1, 0, -1966084, 0, 0, -1966083, 0, 0, -1966082, 0, 0, -1966081, 0, 0, -2031616, 0, 0, -2031615, 0, 0, -2031614, 0, 0, -2031613, 0, 0, -2031612, 1, 0, -1900549, 1, 0, -1900548, 0, 0, -1900547, 0, 0, -1900546, 0, 0, -1900545, 0, 0, -1966080, 0, 0, -1966079, 0, 0, -1966078, 0, 0, -1966077, 0, 0, -1966076, 1, 0, -1835013, 1, 0, -1835012, 0, 0, -1835011, 0, 0, -1835010, 0, 0, -1835009, 0, 0, -1900544, 0, 0, -1900543, 0, 0, -1900542, 0, 0, -1900541, 0, 0, -1900540, 1, 0, -1769477, 1, 0, -1769476, 0, 0, -1769475, 0, 0, -1769474, 0, 0, -1769473, 0, 0, -1835008, 0, 0, -1835007, 0, 0, -1835006, 0, 0, -1835005, 0, 0, -1835004, 1, 0, -1703941, 1, 0, -1703940, 0, 0, -1703939, 0, 0, -1703938, 0, 0, -1703937, 0, 0, -1769472, 0, 0, -1769471, 0, 0, -1769470, 0, 0, -1769469, 0, 0, -1769468, 1, 0, -1769338, 0, 0, -1638405, 1, 0, -1638404, 0, 0, -1638403, 0, 0, -1638402, 0, 0, -1638401, 0, 0, -1703936, 0, 0, -1703935, 0, 0, -1703934, 0, 0, -1703933, 0, 0, -1703932, 1, 0, -1572869, 1, 0, -1572868, 0, 0, -1572867, 0, 0, -1572866, 0, 0, -1572865, 0, 0, -1638400, 0, 0, -1638399, 0, 0, -1638398, 0, 0, -1638397, 0, 0, -1638396, 1, 0, -1507333, 1, 0, -1507332, 1, 0, -1507331, 1, 0, -1507330, 1, 0, -1507329, 0, 0, -1572864, 0, 0, -1572863, 1, 0, -1572862, 1, 0, -1572861, 1, 0, -1572860, 1, 0, -1441794, 1, 0, -1441793, 0, 0, -1507328, 0, 0, -1507327, 1, 0, -1376258, 1, 0, -1376257, 0, 0, -1441792, 0, 0, -1441791, 1, 0, -1310730, 1, 0, -1310729, 1, 0, -1310728, 1, 0, -1310727, 1, 0, -1310726, 1, 0, -1310725, 1, 0, -1310724, 1, 0, -1310723, 1, 0, -1310722, 1, 0, -1310721, 0, 0, -1376256, 0, 0, -1376255, 1, 0, -1245194, 1, 0, -1245193, 0, 0, -1245192, 0, 0, -1245191, 0, 0, -1245190, 0, 0, -1245189, 0, 0, -1245188, 0, 0, -1245187, 0, 0, -1245186, 0, 0, -1245185, 0, 0, -1310720, 0, 0, -1310719, 1, 0, -1179658, 1, 0, -1179657, 0, 0, -1179656, 0, 0, -1179655, 0, 0, -1179654, 0, 0, -1179653, 0, 0, -1179652, 0, 0, -1179651, 0, 0, -1179650, 0, 0, -1179649, 0, 0, -1245184, 0, 0, -1245183, 1, 0, -1114122, 1, 0, -1114121, 0, 0, -1114120, 0, 0, -1114119, 1, 0, -1114118, 1, 0, -1114117, 1, 0, -1114116, 1, 0, -1114115, 1, 0, -1114114, 1, 0, -1114113, 1, 0, -1179648, 1, 0, -1179647, 1, 0, -1048586, 1, 0, -1048585, 0, 0, -1048584, 0, 0, -1048583, 1, 0, -983050, 1, 0, -983049, 0, 0, -983048, 0, 0, -983047, 1, 0, -983046, 1, 0, -983045, 1, 0, -983044, 1, 0, -983043, 1, 0, -983042, 1, 0, -983041, 1, 0, -1048576, 1, 0, -1048575, 1, 0, -917514, 1, 0, -917513, 0, 0, -917512, 0, 0, -917511, 0, 0, -917510, 0, 0, -917509, 0, 0, -917508, 0, 0, -917507, 0, 0, -917506, 0, 0, -917505, 0, 0, -983040, 0, 0, -983039, 1, 0, -851978, 1, 0, -851977, 0, 0, -851976, 0, 0, -851975, 0, 0, -851974, 0, 0, -851973, 0, 0, -851972, 0, 0, -851971, 0, 0, -851970, 0, 0, -851969, 0, 0, -917504, 0, 0, -917503, 1, 0, -786442, 1, 0, -786441, 1, 0, -786440, 1, 0, -786439, 1, 0, -786438, 1, 0, -786437, 1, 0, -786436, 1, 0, -786435, 1, 0, -786434, 1, 0, -786433, 0, 0, -851968, 0, 0, -851967, 1, 0, -720898, 1, 0, -720897, 0, 0, -786432, 0, 0, -786431, 1, 0, -655362, 1, 0, -655361, 0, 0, -720896, 0, 0, -720895, 1, 0, -589826, 1, 0, -589825, 0, 0, -655360, 0, 0, -655359, 1, 0, -524290, 1, 0, -524289, 0, 0, -589824, 0, 0, -589823, 1, 0, -458754, 1, 0, -458753, 0, 0, -524288, 0, 0, -524287, 1, 0, -393218, 1, 0, -393217, 0, 0, -458752, 0, 0, -458751, 1, 0, -327682, 1, 0, -327681, 0, 0, -393216, 0, 0, -393215, 1, 0, -262146, 1, 0, -262145, 0, 0, -327680, 0, 0, -327679, 1, 0, -196612, 1, 0, -196611, 1, 0, -196610, 1, 0, -196609, 0, 0, -262144, 0, 0, -262143, 1, 0, -262142, 1, 0, -262141, 1, 0, -131076, 1, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 1, 0, -65540, 1, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 1, 0, -4, 1, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 1, 0, 65532, 1, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 1, 0, 131068, 1, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 1, 0, 196604, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="Navigation2D"]
+zoom = Vector2( 10, 10 )
+
+[node name="Enemy" type="Node2D" parent="."]
+
+[node name="Enemy2" parent="Enemy" instance=ExtResource( 5 )]
+position = Vector2( 0, -966 )
+move_speed = 0
+
+[node name="Enemy3" parent="Enemy" instance=ExtResource( 5 )]
+position = Vector2( 171, -1749 )
+move_speed = 0
+
+[node name="Tutorial Text" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Welcome" type="Label" parent="Tutorial Text"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -82.0
+margin_top = -116.0
+margin_right = 173.0
+margin_bottom = -35.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Welcome to 
+Spaceman steve"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WASD" type="Label" parent="Tutorial Text"]
+margin_left = -102.0
+margin_top = -244.0
+margin_right = 153.0
+margin_bottom = -163.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0, 0.172549, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "W
+ASD"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WASD To Move" type="Label" parent="Tutorial Text"]
+margin_left = -32.0
+margin_top = -256.0
+margin_right = 98.0
+margin_bottom = 35.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -9
+text = "use the
+
+
+
+keys to move"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A" type="Label" parent="Tutorial Text"]
+margin_left = -107.0
+margin_top = -466.0
+margin_right = 148.0
+margin_bottom = -385.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "< A"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="W" type="Label" parent="Tutorial Text"]
+margin_left = -358.0
+margin_top = -487.0
+margin_right = -103.0
+margin_bottom = -406.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "^
+w"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="D" type="Label" parent="Tutorial Text"]
+margin_left = -353.0
+margin_top = -627.0
+margin_right = -98.0
+margin_bottom = -546.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "D>"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="W2" type="Label" parent="Tutorial Text"]
+margin_left = -101.0
+margin_top = -646.0
+margin_right = 154.0
+margin_bottom = -565.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "^
+w"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left click to shoot" type="Label" parent="Tutorial Text"]
+margin_left = -150.0
+margin_top = -822.0
+margin_right = 225.0
+margin_bottom = -741.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = SubResource( 5 )
+text = "to shoot"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left CLick" type="Label" parent="Tutorial Text"]
+margin_left = -103.0
+margin_top = -848.0
+margin_right = 152.0
+margin_bottom = -767.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0, 0.172549, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "LEft Click"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tab" type="Label" parent="Tutorial Text"]
+margin_left = -134.0
+margin_top = -1255.0
+margin_right = 121.0
+margin_bottom = -1174.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0, 0.172549, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "TAB"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="use tab to zoom out" type="Label" parent="Tutorial Text"]
+margin_left = -149.0
+margin_top = -1247.0
+margin_right = 226.0
+margin_bottom = -1166.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = SubResource( 5 )
+text = "use                   to zoom out"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Kill all enemies to advance to next level!" type="Label" parent="Tutorial Text"]
+margin_left = -115.0
+margin_top = -1781.0
+margin_right = 185.0
+margin_bottom = -1652.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -3
+custom_fonts/font = SubResource( 5 )
+text = "            all the enemies to advance to the next level
+			
+			you can select an upgrade each time you complete a level"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="kill" type="Label" parent="Tutorial Text"]
+margin_left = -187.0
+margin_top = -1788.0
+margin_right = 68.0
+margin_bottom = -1707.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -13
+custom_fonts/font = ExtResource( 8 )
+text = "KILL"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+move_speed = 300
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.133333, 0.180392, 0.184314, 1 )

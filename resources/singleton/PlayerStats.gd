@@ -16,7 +16,8 @@ var pDict = {
 	DotActive = false, #Bullet DOT          (Boolean )
 	DotCoeffAdd = 0,   #DoT coefficient     (Additive)
 	MaxHealth = 200.0,   #Max Health            (Multiplicative)
-	Health = 10.0
+	Health = 10.0,
+	AbilityMod = 1,
 }
 
 func _ready():

@@ -10,7 +10,6 @@ var attacking = false
 onready var nav2D = get_parent().get_parent().get_node("Navigation2D")
 var look_point = position
 
-
 func _ready():
 	move_speed *= PlayerStats.levelEnemyMod
 	hp *= PlayerStats.levelEnemyMod
@@ -32,19 +31,19 @@ func take_hit(d, crit_chance=0, dot=false, dottime=0,dotticks=0, dotcoeff=1):
 	float_text.position = self.global_position
 	
 	get_tree().get_root().add_child(float_text)
-	
+
 	hp-=d
 	if hp<=0: 
 		PlayerStats.Score += 50
 		queue_free()
-	
+
 	modulate = Color(1,0.8,0.8)
 	yield(get_tree().create_timer(0.1), "timeout")
 	modulate = Color(1,1,1)
 	if dot==true:
 		start_dot(d,dottime,dotticks,dotcoeff)
 	crit = false
-	
+
 func start_dot(d,dtime,dticks,dcoeff):
 	dtime = dtime/dticks
 	for _i in range(dticks):

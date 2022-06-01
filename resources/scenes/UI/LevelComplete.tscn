@@ -47,6 +47,7 @@ margin_right = 64.0
 margin_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+toggle_mode = true
 expand = true
 
 [node name="Upgrade2" type="TextureButton" parent="Upgrades"]
@@ -55,6 +56,7 @@ margin_right = 132.0
 margin_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+toggle_mode = true
 expand = true
 
 [node name="Upgrade3" type="TextureButton" parent="Upgrades"]
@@ -63,6 +65,7 @@ margin_right = 200.0
 margin_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+toggle_mode = true
 expand = true
 
 [node name="NextLevelButton" type="Button" parent="."]

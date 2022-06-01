@@ -17,8 +17,7 @@ radius = 15.0
 script = ExtResource( 2 )
 move_speed = 200
 bullet = ExtResource( 9 )
-grenade = null
-roll_cd = 20
+roll_cd = 15
 ability = "Blink"
 
 [node name="Gun" type="Sprite" parent="."]

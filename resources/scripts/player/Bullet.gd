@@ -18,8 +18,6 @@ func _ready():
 	dot = ((int(dot) + int(PlayerStats.pDict.DotActive)) != 0)
 	dotcoeff = 1.0 + PlayerStats.pDict.DotCoeffAdd
 
-
-
 func _process(delta):
 	if not $RayCast.is_colliding():
 		position+= transform.x * speed * delta
@@ -27,10 +25,8 @@ func _process(delta):
 		position = $RayCast.get_collision_point() 
 		position+= transform.x * speed/1000
 
-
 func _on_Timer_timeout():
 	queue_free()
-
 
 func _on_Bullet_body_entered(body):
 	$CollisionShape2D.scale.x = aoe_area

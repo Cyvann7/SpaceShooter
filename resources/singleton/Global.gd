@@ -56,8 +56,7 @@ func load_highscores():
 		var score = scorename[0]
 		var pname = scorename[1]
 		highscores.append([int(score), pname])
-	print("FILE LOADED")
-	print("HIGH SCORES: \n",highscores)
+
 
 func save_highscores():
 	#Delete File

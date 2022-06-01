@@ -49,8 +49,6 @@ func _physics_process(_delta):
 			for enemy in enemyleft:
 				if enemy.global_position.distance_to(global_position) < closest_enemy.global_position.distance_to(global_position):
 					closest_enemy = enemy
-		
-		
 	else: EnemyPointerArrow.hide()
 
 
@@ -82,24 +80,29 @@ func roll():
 	var non_roll_move_speed = move_speed
 	currently_rolling = true
 	move_speed = roll_speed
-	yield(get_tree().create_timer(roll_time), "timeout")
+	yield(get_tree().create_timer(roll_time/PlayerStats.pDict.AbilityMod), "timeout")
 	move_speed = non_roll_move_speed
 	currently_rolling = false
 	
 func use_ability():
-	if ability == "Roll":
-		 roll()
+	if ability == "Roll":  roll()
 	if ability == "Blink":
-		 position = get_global_mouse_position()
+		var tilemap = get_parent().get_node("Navigation2D").get_node("TileMap")
+		var mouse_pos = get_global_mouse_position()
+		print(tilemap.get_cellv(tilemap.world_to_map(mouse_pos)))
+		if tilemap.get_cellv(tilemap.world_to_map(mouse_pos)) == 0 :
+			position = mouse_pos
+		else:
+			roll_on_cd = false
+			$Player.modulate = Color(1,1,1)
+			
 	if ability == "Grenade":
-			$Gun/GunMuzzle/Particles2D.restart()
-			var g = grenade.instance()
-			get_parent().add_child(g)
-			g.transform = $Gun/GunMuzzle.global_transform
-			g.rotation_degrees = $Gun.global_rotation_degrees
-			currently_shooting = true
-			yield(get_tree().create_timer(g.fire_rate/PlayerStats.pDict.FireMod), "timeout")
-			currently_shooting = false
+		$Gun/GunMuzzle/Particles2D.restart()
+		var g = grenade.instance()
+		get_parent().add_child(g)
+		g.transform = $Gun/GunMuzzle.global_transform
+		g.rotation_degrees = $Gun.global_rotation_degrees
+		yield(get_tree().create_timer(g.fire_rate/PlayerStats.pDict.FireMod), "timeout")
 
 
 

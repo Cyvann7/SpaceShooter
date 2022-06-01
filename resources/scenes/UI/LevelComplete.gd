@@ -16,11 +16,12 @@ extends Control
 onready var possibleUpgrades = [
 	#Stat, Increase, Texture
 	["MaxHealth"   , 1.25   , load("res://resources/assets/ui/Upgrades/HitPointsUp.png"   )],
-	["DamageMod"   , 5  , load("res://resources/assets/ui/Upgrades/DamageUp.png"      )],
-	["FireMod"     , 1.4  , load("res://resources/assets/ui/Upgrades/RateOfFireUp.png"  )],
-	["SpeedMod"    , 1.2  , load("res://resources/assets/ui/Upgrades/MoveSpeedUp.png"   )],
-	["BulletAoEmod", 3    , load("res://resources/assets/ui/Upgrades/FragmentUp.png"    )],
-	["CritMod"     , 5    , load("res://resources/assets/ui/Upgrades/CritChanceUp.png"  )],
+	["DamageMod"   , 10     , load("res://resources/assets/ui/Upgrades/DamageUp.png"      )],
+	["FireMod"     , 1.4    , load("res://resources/assets/ui/Upgrades/RateOfFireUp.png"  )],
+	["SpeedMod"    , 1.2    , load("res://resources/assets/ui/Upgrades/MoveSpeedUp.png"   )],
+	["BulletAoEmod", 3      , load("res://resources/assets/ui/Upgrades/FragmentUp.png"    )],
+	["CritMod"     , 10     , load("res://resources/assets/ui/Upgrades/CritChanceUp.png"  )],
+	["AbilityMod"  , 1.4    , load("res://resources/assets/ui/Upgrades/AbilityCDUp.png"   )],
 ]
 
 var additiveUpgrades = [
@@ -33,10 +34,11 @@ var multiplicativeUpgrades = [
 	"SpeedMod",
 	"BulletAeEmod",
 	"MaxHealth",
+	"AbilityMod"
 ]
 
 var chosen_upgrades = []
-
+var upgradeindex = -1
 onready var labels = $UILabels
 
 func _ready():
@@ -55,7 +57,7 @@ func select_upgrade(choice):
 	elif upgrade_name in multiplicativeUpgrades:
 		PlayerStats.pDict[upgrade_name] *= upgrade_addition
 	
-	$NextLevelButton.disabled = false
+	
 
 func choose_upgrades():
 	randomize()
@@ -69,20 +71,29 @@ func choose_upgrades():
 		get_node("Upgrades").get_child(i).texture_normal = chosen[2]
 
 func _on_Upgrade1_pressed():
-	select_upgrade(0)
-	$Upgrades/Upgrade1.disabled = true
-	$Upgrades/Upgrade2.disabled = true
-	$Upgrades/Upgrade3.disabled = true
+	upgradeindex = 0
+	$Upgrades/Upgrade2.pressed = false
+	$Upgrades/Upgrade3.pressed = false
+	$Upgrades/Upgrade2.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade3.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade1.modulate = Color(1,1,1)
+	$NextLevelButton.disabled = false
 func _on_Upgrade2_pressed():
-	select_upgrade(1)
-	$Upgrades/Upgrade1.disabled = true
-	$Upgrades/Upgrade2.disabled = true
-	$Upgrades/Upgrade3.disabled = true
+	upgradeindex = 1
+	$Upgrades/Upgrade1.pressed = false
+	$Upgrades/Upgrade3.pressed = false
+	$Upgrades/Upgrade1.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade3.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade2.modulate = Color(1,1,1)
+	$NextLevelButton.disabled = false
 func _on_Upgrade3_pressed():
-	select_upgrade(2)
-	$Upgrades/Upgrade1.disabled = true
-	$Upgrades/Upgrade2.disabled = true
-	$Upgrades/Upgrade3.disabled = true
-	
+	upgradeindex = 2
+	$Upgrades/Upgrade1.pressed = false
+	$Upgrades/Upgrade2.pressed = false
+	$Upgrades/Upgrade2.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade1.modulate = Color(0.4,0.4,0.4)
+	$Upgrades/Upgrade3.modulate = Color(1,1,1)
+	$NextLevelButton.disabled = false
 func _on_NextLevelButton_pressed():
+	select_upgrade(upgradeindex)
 	get_tree().change_scene("res://resources/scenes/ShipGameplay.tscn")

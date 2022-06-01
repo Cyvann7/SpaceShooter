@@ -73,6 +73,7 @@ script = ExtResource( 2 )
 aoe_area = 0.5
 damage = 30
 crit_chance = 1.0
+dotcoeff = 0.8
 fire_rate = 0.8
 spread = 0
 

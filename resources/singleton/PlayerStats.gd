@@ -2,7 +2,9 @@ extends Node
 
 
 var pTimeSpentInLevel = 0
-
+var Score = 0
+var Class = "Astronaut"
+var ClassScene = load("res://resources/scenes/ClassScenes/Astronaut.tscn")
 
 ###PlayerStats
 var pDict = {
@@ -13,7 +15,7 @@ var pDict = {
 	CritMod = 0,       #Bullet Crit Chance  (Additive)
 	DotActive = false, #Bullet DOT          (Boolean )
 	DotCoeffAdd = 0,   #DoT coefficient     (Additive)
-	MaxHealth = INF, #Max Health          (Additive)
+	MaxHealth = 200.0,   #Max Health            (Multiplicative)
 	Health = 10.0
 }
 
@@ -22,17 +24,13 @@ func _ready():
 ###EnemyStats
 var levelEnemyMod = 1
 var EnemyUpgradeTime = 0 
-var worldLevel = 0
+var worldLevel = 0.0
 
 func _physics_process(_delta):
-	
 	if EnemyUpgradeTime > 100 * (1+ (levelEnemyMod/2)):
-		levelEnemyMod *= 1.1
+		levelEnemyMod *= 1 + (worldLevel/10.0)
 		EnemyUpgradeTime = 0
-	
-
-
-
+		Score += 1000
 
 func healPlayer(h):
 	pDict.Health += h

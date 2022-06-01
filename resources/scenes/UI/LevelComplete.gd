@@ -15,8 +15,8 @@ extends Control
 
 onready var possibleUpgrades = [
 	#Stat, Increase, Texture
-	["MaxHealth"   , 50   , load("res://resources/assets/ui/Upgrades/HitPointsUp.png"   )],
-	["DamageMod"   , 1.4  , load("res://resources/assets/ui/Upgrades/DamageUp.png"      )],
+	["MaxHealth"   , 1.25   , load("res://resources/assets/ui/Upgrades/HitPointsUp.png"   )],
+	["DamageMod"   , 5  , load("res://resources/assets/ui/Upgrades/DamageUp.png"      )],
 	["FireMod"     , 1.4  , load("res://resources/assets/ui/Upgrades/RateOfFireUp.png"  )],
 	["SpeedMod"    , 1.2  , load("res://resources/assets/ui/Upgrades/MoveSpeedUp.png"   )],
 	["BulletAoEmod", 3    , load("res://resources/assets/ui/Upgrades/FragmentUp.png"    )],
@@ -24,15 +24,15 @@ onready var possibleUpgrades = [
 ]
 
 var additiveUpgrades = [
-	"MaxHealth",
 	"DotCoeffAdd",
-	"CritMod"
+	"CritMod",
+	"DamageMod",
 ]
 var multiplicativeUpgrades = [
-	"DamageMod",
 	"FireMod",
 	"SpeedMod",
-	"BulletAeEmod"
+	"BulletAeEmod",
+	"MaxHealth",
 ]
 
 var chosen_upgrades = []
@@ -83,5 +83,6 @@ func _on_Upgrade3_pressed():
 	$Upgrades/Upgrade1.disabled = true
 	$Upgrades/Upgrade2.disabled = true
 	$Upgrades/Upgrade3.disabled = true
+	
 func _on_NextLevelButton_pressed():
 	get_tree().change_scene("res://resources/scenes/ShipGameplay.tscn")

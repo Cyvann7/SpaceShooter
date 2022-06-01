@@ -19,11 +19,9 @@ func _input(event):
 			menu.change_bind(key,value)
 			pressed = false
 			waiting_input = false
-			
 		elif event is InputEventMouseButton:
 			if value != null:
 				text = OS.get_scancode_string(value)
 			else: text = "unassigned"
-			
 			pressed = false
 			waiting_input = false

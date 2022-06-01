@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/scenes/UI/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://resources/assets/ui/Spaceman.png" type="Texture" id=4]
 [ext_resource path="res://resources/assets/ui/Steve.png" type="Texture" id=5]
-[ext_resource path="res://resources/assets/ui/levelcompletebackground.jpeg" type="Texture" id=6]
+[ext_resource path="res://resources/assets/ui/background.jpg" type="Texture" id=6]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -18,10 +18,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -212.0
-margin_top = -142.0
-margin_right = 1708.0
-margin_bottom = 938.0
+margin_left = -221.0
+margin_top = -153.0
+margin_right = 1699.0
+margin_bottom = 927.0
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -70,10 +70,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Leaderboard" type="Button" parent="VBoxContainer"]
 margin_top = 171.0
 margin_right = 250.0
 margin_bottom = 218.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Leaderboard"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+margin_top = 228.0
+margin_right = 250.0
+margin_bottom = 275.0
 theme = ExtResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Quit"
@@ -110,7 +121,16 @@ rect_scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 5 )
 stretch_mode = 3
 
+[node name="Label" type="Label" parent="."]
+margin_left = 546.0
+margin_top = 671.0
+margin_right = 1284.0
+margin_bottom = 710.0
+theme = ExtResource( 1 )
+text = "A Computer Science Project By James Sheeley"
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Leaderboard" to="." method="_on_Leaderboard_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

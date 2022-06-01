@@ -18,7 +18,6 @@ func _ready():
 		label.set_h_size_flags(Control.SIZE_EXPAND_FILL)
 		button.set_h_size_flags(Control.SIZE_EXPAND_FILL)
 		
-		
 		label.text = key.split("_")[1]
 		label.align = label.ALIGN_CENTER
 		
@@ -42,7 +41,6 @@ func _ready():
 
 func change_bind(key, value):
 	keybinds[key] = value
-	
 	for k in keybinds.keys():
 		if k != key and value != null and keybinds[k] == value:
 			keybinds[k] = null

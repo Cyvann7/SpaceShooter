@@ -2,11 +2,12 @@ extends KinematicBody2D
 
 export var move_speed = 250 
 export var bullet = preload("res://resources/BulletTypes/Default.tscn")
+export var grenade = preload("res://resources/BulletTypes/Grenade.tscn")
 var actual_velocity
 var fire_rate = 0.1
 var currently_shooting = false
 var currently_rolling =  false
-var roll_cd =    3
+export var roll_cd =    3
 var roll_on_cd = false
 var roll_time =  0.15
 var roll_speed = 1000
@@ -14,7 +15,7 @@ var closest_enemy = null
 onready var EnemyPointerArrow = $EnemyArrow
 
 
-export(String, "Roll", "Blink") var ability
+export(String, "Roll", "Blink", "Grenade") var ability
 
 func _ready():
 	move_speed *= PlayerStats.pDict.SpeedMod
@@ -90,7 +91,15 @@ func use_ability():
 		 roll()
 	if ability == "Blink":
 		 position = get_global_mouse_position()
-
+	if ability == "Grenade":
+			$Gun/GunMuzzle/Particles2D.restart()
+			var g = grenade.instance()
+			get_parent().add_child(g)
+			g.transform = $Gun/GunMuzzle.global_transform
+			g.rotation_degrees = $Gun.global_rotation_degrees
+			currently_shooting = true
+			yield(get_tree().create_timer(g.fire_rate/PlayerStats.pDict.FireMod), "timeout")
+			currently_shooting = false
 
 
 

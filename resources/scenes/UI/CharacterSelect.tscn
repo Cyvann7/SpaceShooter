@@ -1,0 +1,219 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://resources/scenes/UI/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://resources/assets/ui/fonts/Kenney Blocks.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/scenes/UI/CharacterSelect.gd" type="Script" id=4]
+[ext_resource path="res://resources/assets/main/players/Commander.png" type="Texture" id=5]
+[ext_resource path="res://resources/assets/main/players/Ranger.png" type="Texture" id=6]
+[ext_resource path="res://resources/assets/main/players/Gunner.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 3 )
+
+[node name="CharacterSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UILabels" type="Control" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choose A Character" type="Label" parent="Panel/UILabels"]
+anchor_left = 0.5
+anchor_top = 0.203
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -122.12
+margin_right = 200.0
+margin_bottom = -422.6
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Choose a Character"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="charactername" type="Label" parent="Panel/UILabels"]
+anchor_left = 0.5
+anchor_top = 0.618
+anchor_right = 0.5
+anchor_bottom = 0.618
+margin_left = -160.0
+margin_top = -24.0
+margin_right = 160.0
+margin_bottom = 24.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Charactername"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Statsbox" type="HBoxContainer" parent="Panel/UILabels"]
+anchor_top = 0.734
+anchor_right = 1.0
+anchor_bottom = 0.82
+margin_top = -151.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ability" type="VBoxContainer" parent="Panel/UILabels/Statsbox"]
+margin_right = 615.0
+margin_bottom = 212.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ability" type="Label" parent="Panel/UILabels/Statsbox/Ability"]
+margin_top = 56.0
+margin_right = 615.0
+margin_bottom = 104.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Ability"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AbilityLabel" type="Label" parent="Panel/UILabels/Statsbox/Ability"]
+margin_top = 108.0
+margin_right = 615.0
+margin_bottom = 156.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "AbilityName"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" type="VBoxContainer" parent="Panel/UILabels/Statsbox"]
+margin_left = 665.0
+margin_right = 1280.0
+margin_bottom = 212.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" type="Label" parent="Panel/UILabels/Statsbox/Weapon"]
+margin_top = 56.0
+margin_right = 615.0
+margin_bottom = 104.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Weapon"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponLabel" type="Label" parent="Panel/UILabels/Statsbox/Weapon"]
+margin_top = 108.0
+margin_right = 615.0
+margin_bottom = 156.0
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Weaponname"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Characters" type="HBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.586
+anchor_right = 0.5
+anchor_bottom = 0.586
+margin_left = -347.0
+margin_top = -290.92
+margin_right = 353.0
+margin_bottom = -30.92
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character1" type="TextureButton" parent="Panel/Characters"]
+margin_right = 230.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 120, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 4
+
+[node name="Character2" type="TextureButton" parent="Panel/Characters"]
+margin_left = 234.0
+margin_right = 465.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 120, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Character3" type="TextureButton" parent="Panel/Characters"]
+margin_left = 469.0
+margin_right = 700.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 120, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+
+[node name="StartGameButton" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.711
+anchor_right = 0.5
+anchor_bottom = 0.711
+margin_left = -160.0
+margin_top = -25.0
+margin_right = 160.0
+margin_bottom = 25.0
+theme = ExtResource( 1 )
+disabled = true
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/Characters/Character1" to="." method="_on_Character1_pressed"]
+[connection signal="pressed" from="Panel/Characters/Character2" to="." method="_on_Character2_pressed"]
+[connection signal="pressed" from="Panel/Characters/Character3" to="." method="_on_Character3_pressed"]
+[connection signal="pressed" from="Panel/StartGameButton" to="." method="_on_StartGameButton_pressed"]

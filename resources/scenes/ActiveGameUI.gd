@@ -9,6 +9,7 @@ onready var world = get_parent().get_node("World")
 func _physics_process(_delta):
 	healthbarTex.value = (PlayerStats.pDict.Health/PlayerStats.pDict.MaxHealth) * 100
 	healthbarLabel.text = str(round(PlayerStats.pDict.Health))
+	
 	if PlayerStats.pDict.Health/PlayerStats.pDict.MaxHealth < 0.2:
 		  healthbarTex.tint_over = Color.red
 	else: healthbarTex.tint_over = Color.white
@@ -18,10 +19,12 @@ func _physics_process(_delta):
 		enemyLeftLabel.text = "Enemy Left: " + str(enemyleft)
 	else:
 		setChildVisibility(false)
-		world = get_parent().get_node("World")
+		if not is_instance_valid(get_parent().get_node("MainMenu")):
+			world = get_parent().get_node("World")
 
 func setChildVisibility(b):
 	healthbarLabel.visible = b
 	healthbarTex.visible = b
 	enemyLeftLabel.visible = b
+
 

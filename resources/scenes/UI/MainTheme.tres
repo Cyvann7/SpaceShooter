@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://resources/assets/ui/fonts/Kenney Blocks.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/scenes/UI/MainTheme/ButtonNormal.tres" type="StyleBox" id=2]
@@ -11,6 +11,9 @@
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
 [resource]
 Button/fonts/font = SubResource( 1 )
 Button/styles/disabled = ExtResource( 2 )
@@ -21,4 +24,8 @@ Button/styles/pressed = ExtResource( 3 )
 CheckButton/icons/off = ExtResource( 6 )
 CheckButton/icons/on = ExtResource( 5 )
 Label/fonts/font = ExtResource( 7 )
+LineEdit/fonts/font = SubResource( 2 )
+LineEdit/styles/focus = ExtResource( 3 )
+LineEdit/styles/normal = ExtResource( 2 )
+LineEdit/styles/read_only = ExtResource( 3 )
 Panel/styles/panel = ExtResource( 2 )

@@ -2,17 +2,17 @@ extends Node2D
 
 #Scenes Preload
 var Room = preload("res://resources/scenes/room.tscn")
-var Player = preload("res://resources/scenes/Player.tscn")
+var Player = PlayerStats.ClassScene
 var Enemy = preload("res://resources/scenes/Enemy.tscn")
 onready var Map = $Navigation2D/TileMap
 
 #Map
 var tile_size = 32
-var h_spread = 100
-var min_size = 4
-var max_size = 10
+var h_spread = 90
+var min_size = 5
+var max_size = 12
 var end_room = null
-var num_rooms
+var num_rooms = 15
 var path 
 var play_mode = false
 var player = null
@@ -40,6 +40,7 @@ func _ready():
 	make_map()
 	
 	
+	
 	player = Player.instance()
 	player.position.x = start_pos.x
 	player.position.y = start_pos.y
@@ -48,9 +49,20 @@ func _ready():
 	PlayerStats.pTimeSpentInLevel = 0
 	PlayerStats.worldLevel += 1
 	PlayerStats.pDict.Health = PlayerStats.pDict.MaxHealth
+	PlayerStats.Score += 1000
+	yield(get_tree().create_timer(0.3), "timeout")
+	
+	while player.position != start_pos:
+		var start_pos_index = randi()%Map.get_used_cells_by_id(0).size()
+		start_pos = Map.map_to_world(Map.get_used_cells_by_id(0)[start_pos_index])	
+		player.position.x = start_pos.x
+		player.position.y = start_pos.y
+		yield(get_tree().create_timer(0.005), "timeout")
+		
 
+	
 func make_rooms():
-	num_rooms = 15 + randi()%25
+	num_rooms += randi()%15
 	#for every room needed to be made
 	for _i in range(num_rooms):
 		#blank vector
@@ -129,11 +141,12 @@ func make_map():
 		#get the size of the room
 		var r = Rect2(room.position-room.size, room.get_node("CollisionShape2D").shape.extents*2)
 		full_rect = full_rect.merge(r)
-		start_pos = room.position
-	print(start_pos)
+	
+	start_pos = $Rooms.get_children()[0].position
 	
 	var topleft = Map.world_to_map(full_rect.position)
 	var bottomright = Map.world_to_map(full_rect.end)
+	
 	
 	
 	
@@ -144,7 +157,6 @@ func make_map():
 	#carve rooms
 	var corridors = []
 	for room in $Rooms.get_children():
-		
 		var s = (room.size/tile_size).floor()
 		var _pos = Map.world_to_map(room.position)
 		var ul = (room.position/tile_size).floor() - s
@@ -170,6 +182,12 @@ func make_map():
 			e.position = Map.map_to_world(cell)
 			e.position.x +=16
 			e.position.y +=16
+	
+	
+	
+	
+	var start_pos_index = randi()%Map.get_used_cells_by_id(0).size()
+	start_pos = Map.map_to_world(Map.get_used_cells_by_id(0)[start_pos_index])	
 	
 	#get rid of squares not connected to floors
 	for cell in Map.get_used_cells_by_id(1):
@@ -212,24 +230,3 @@ func carve_path(pos1, pos2):
 func enemy_left():
 	return $Enemy.get_child_count()
 
-#########|DEV OPTIONS|##########################################################
-#func _input(event):
-#	if event.is_action_pressed("ui_select"):
-#		for n in $Rooms.get_children():
-#			n.queue_free()
-#		make_rooms()
-#	if event.is_action_pressed("ui_focus_next"):
-#		make_map()
-#
-#func _draw():
-#	for room in $Rooms.get_children():
-#		draw_rect(Rect2(room.position - room.size, room.size * 2), Color(0,1,0), false)
-#	if path:
-#		for p in path.get_points():
-#			for c in path.get_point_connections(p):
-#				var pp = path.get_point_position(p)
-#				var cp = path.get_point_position(c)
-#				draw_line(Vector2(pp.x,pp.y),
-#						  Vector2(cp.x, cp.y),
-#						  Color(0.1,0.1,0.1,1), 15, true)
-##################################################################################

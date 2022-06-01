@@ -1,37 +1,226 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/assets/ui/HealthBarRed.png" type="Texture" id=1]
 [ext_resource path="res://resources/scenes/UI/MainTheme.tres" type="Theme" id=2]
 [ext_resource path="res://resources/scenes/UI/MainTheme/KennySpaceFOn.tres" type="DynamicFont" id=3]
+[ext_resource path="res://resources/scenes/UI/PlayerDeath.gd" type="Script" id=4]
+[ext_resource path="res://resources/assets/ui/fonts/Kenney Blocks.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 5 )
 
 [node name="PlayerDeath" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -100.0
-margin_top = -29.0
-margin_right = -7.62939e-06
-margin_bottom = 11.0
-rect_scale = Vector2( 15, 40 )
+modulate = Color( 0.439216, 0.439216, 0.439216, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 99.0
+margin_bottom = 19.0
+rect_scale = Vector2( 12.82, 36.1 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 529.0
-margin_top = 258.0
-margin_right = 617.0
-margin_bottom = 309.0
+anchor_left = 0.5
+anchor_top = 0.15
+anchor_right = 0.508
+anchor_bottom = 0.15
+margin_left = -205.0
+margin_top = -64.0
+margin_right = -68.0
+margin_bottom = -25.0
 rect_scale = Vector2( 3, 3 )
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
 text = "You died"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="UILabels" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -102.0
+margin_bottom = 102.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="HBoxContainer" parent="UILabels"]
+margin_right = 1280.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="Time" type="Label" parent="UILabels/Time"]
+margin_left = 538.0
+margin_right = 690.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Time   : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeValue" type="Label" parent="UILabels/Time"]
+margin_left = 694.0
+margin_right = 742.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="HBoxContainer" parent="UILabels"]
+margin_top = 52.0
+margin_right = 1280.0
+margin_bottom = 100.0
+alignment = 1
+
+[node name="Level" type="Label" parent="UILabels/Level"]
+margin_left = 538.0
+margin_right = 690.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Level : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelValue" type="Label" parent="UILabels/Level"]
+margin_left = 694.0
+margin_right = 742.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="HBoxContainer" parent="UILabels"]
+margin_top = 104.0
+margin_right = 1280.0
+margin_bottom = 152.0
+alignment = 1
+
+[node name="Score" type="Label" parent="UILabels/Score"]
+margin_left = 538.0
+margin_right = 690.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Score : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreValue" type="Label" parent="UILabels/Score"]
+margin_left = 694.0
+margin_right = 742.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="HBoxContainer" parent="UILabels"]
+margin_top = 156.0
+margin_right = 1280.0
+margin_bottom = 204.0
+alignment = 1
+
+[node name="Class" type="Label" parent="UILabels/Character"]
+margin_left = 462.0
+margin_right = 614.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Class : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClassValue" type="Label" parent="UILabels/Character"]
+margin_left = 618.0
+margin_right = 818.0
+margin_bottom = 48.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Spaceman"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Control" parent="UILabels"]
+margin_top = 208.0
+margin_right = 1280.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="NameBox" type="HBoxContainer" parent="UILabels"]
+margin_top = 232.0
+margin_right = 1280.0
+margin_bottom = 282.0
+alignment = 1
+
+[node name="TextEdit" type="LineEdit" parent="UILabels/NameBox"]
+margin_left = 440.0
+margin_right = 840.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 400, 50 )
+theme = ExtResource( 2 )
+align = 1
+expand_to_text_length = true
+placeholder_text = "Enter Name"
+placeholder_alpha = 0.4
+caret_blink = true
+
+[node name="Spacer2" type="Control" parent="UILabels"]
+margin_top = 286.0
+margin_right = 1280.0
+margin_bottom = 306.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Back Button" type="HBoxContainer" parent="UILabels"]
+margin_top = 310.0
+margin_right = 1280.0
+margin_bottom = 366.0
+alignment = 1
+
+[node name="Button" type="Button" parent="UILabels/Back Button"]
+margin_left = 504.0
+margin_right = 776.0
+margin_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 2 )
+text = "Back To Menu"
+
+[connection signal="pressed" from="UILabels/Back Button/Button" to="." method="_on_Back_Button_pressed"]

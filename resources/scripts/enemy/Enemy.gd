@@ -20,7 +20,6 @@ func _ready():
 func take_hit(d, crit_chance=0, dot=false, dottime=0,dotticks=0, dotcoeff=1):
 	if crit_chance != 0:
 		if randi()%100 <= crit_chance:
-			print("CRIT", crit_chance)
 			crit = true
 			d = d*2
 	
@@ -35,7 +34,9 @@ func take_hit(d, crit_chance=0, dot=false, dottime=0,dotticks=0, dotcoeff=1):
 	get_tree().get_root().add_child(float_text)
 	
 	hp-=d
-	if hp<=0: queue_free()
+	if hp<=0: 
+		PlayerStats.Score += 50
+		queue_free()
 	
 	modulate = Color(1,0.8,0.8)
 	yield(get_tree().create_timer(0.1), "timeout")
@@ -58,12 +59,15 @@ func _physics_process(delta):
 		var path
 		if not path:
 			path = nav2D.get_simple_path(self.global_position, player.global_position)
-		move_along_path(path, (move_speed*delta))
-		look_at(look_point)
+		if path.size() < 6:
+			move_along_path(path, (move_speed*delta))
+			look_at(look_point)
+		else:
+			path = []
+			yield(get_tree().create_timer(3), "timeout")
 
 	elif not attacking and player and player.position.distance_to(self.position)<=50:
 		look_at(look_point)
-
 		attacking = true
 		attack()
 		yield(get_tree().create_timer(1), "timeout")
@@ -98,10 +102,13 @@ func attack():
 	$AnimationPlayer.current_animation = "AttackWindup"
 	yield(get_tree().create_timer(1), "timeout")
 	for _i in range(5):
-		if player.position.distance_to(self.position)<=50:
-			PlayerStats.damagePlayer(damage)
+		if is_instance_valid(player):
+			if player.position.distance_to(self.position)<=50:
+				PlayerStats.damagePlayer(damage)
+				break
+			yield(get_tree().create_timer(0.2), "timeout")
+		else:
 			break
-		yield(get_tree().create_timer(0.2), "timeout")
 	move_speed*= 0.5
 	
 
